@@ -8,12 +8,21 @@ public abstract class Produto {
     private int id;
     private Double preco;
     private Categoria categoria;
+    private Genero genero;
 
     public Produto(Categoria categoria, String nome, Double preco) {
         this.nome = nome;
         this.preco = preco;
         this.id = 0;
         this.categoria = categoria;
+    }
+
+    public Genero getGenero() {
+        return genero;
+    }
+
+    public void setGenero(Genero genero) {
+        this.genero = genero;
     }
 
     public void setId(int id) {

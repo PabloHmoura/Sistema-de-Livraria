@@ -31,17 +31,33 @@ public class Livraria {
     }
 
     public List<Produto> listarItensPorCategoria(Categoria categoria) {
-        this.produtos.stream().filter(produto -> produto.getCategoria() == categoria).forEach(System.out::println);
-        System.out.println(this.produtos.size() + " produtos");
+        System.out.println(categoria);
+        List<Produto> lista = this.produtos.stream().filter(produto -> produto.getCategoria() == categoria).toList();
+        lista.forEach(System.out::println);
+        System.out.println(lista.size() + " produtos");
+
         return produtos;
     }
 
-    public List<Produto> listarTodosItensPorCategoria() {
+    public List<Produto> listarTodosItensEmSequenciaDeCategoria() {
         this.produtos.sort(Comparator.comparing(Produto::getCategoria));
         this.produtos.forEach(System.out::println);
         return this.produtos;
     }
 
     public void testandoMap() {
+    }
+
+    public void selecionandoProdutoPorId(int id) {
+        Produto produto = map.get(id);
+        venderItem(produto);
+
+    }
+
+    public void listarPorCategoriaEPorGenero(Categoria categoria, Genero genero) {
+        List<Produto> lista = this.produtos.stream().filter(produto -> produto.getCategoria() == categoria && produto.getGenero() == genero).toList();
+        System.out.println(lista.size() + " produtos da categoria " + categoria + " do gênero " + genero);
+        lista.forEach(System.out::println);
+
     }
 }

@@ -8,4 +8,9 @@ public class Brinquedo extends Produto {
         super(categoria, nome, preco);
         this.tipo = tipo;
     }
+
+    @Override
+    public String toString() {
+        return  super.toString() + " ID[ " + this.getId() + " ]" + "\n" + "Tipo: " + this.tipo + "\n";
+    }
 }
