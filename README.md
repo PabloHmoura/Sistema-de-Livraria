@@ -4,4 +4,9 @@ Este é um sistema de uma livraria que conta com as funcionalidades de venda, ad
 
 Foram inseridos 4 construtores para criação de 4 produtos diferentes, que mesmo "iguais", podem ser diferenciados pelo ID que é gerado aleatóriamente e mapeado através de um HashMap. Esses objetos foram criados para facilitar o teste do sistema.
 
+No método de edição do produto, apenas se faz sentido apenas a edição do preço, portanto não foram inseridos demais modificadores.
+
+Os genêros músicais ainda serão atualizados, o Enum já foi criado, é necessário apenas a troca de valores nas variáveis relacionadas ao objeto do tipo Album/Musica.
+
+
 
