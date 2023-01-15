@@ -8,5 +8,7 @@ No método de edição do produto, apenas se faz sentido apenas a edição do pr
 
 Os genêros músicais ainda serão atualizados, o Enum já foi criado, é necessário apenas a troca de valores nas variáveis relacionadas ao objeto do tipo Album/Musica.
 
+No caminho src/br/com/ada/pablo/teste/ classe MetodosDeEntrada teremos todos os métodos que irão tratar da entrada do usuário.
 
+No caminho src/br/com/ada/pablo/modelos classe Livraria iremos encontrar os métodos responsáveis pelas modificações dos atríbutos do sistema.
 
