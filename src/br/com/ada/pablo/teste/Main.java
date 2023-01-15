@@ -11,7 +11,6 @@ public class Main {
         Produto produto4 = new Livro(Categoria.LIVRO, "Eu e Ela",  100.00, Genero.ROMANCE, "Romeu", "Julieta");
 
         Livraria livraria = new Livraria();
-        System.out.println("Caixa: " + livraria.getValorCaixa());
         livraria.adicionarProduto(produto);
         livraria.adicionarProduto(produto2);
         livraria.adicionarProduto(produto3);

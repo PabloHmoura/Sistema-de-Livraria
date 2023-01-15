@@ -3,14 +3,18 @@ package br.com.ada.pablo.teste;
 import br.com.ada.pablo.modelos.Brinquedo;
 import br.com.ada.pablo.modelos.*;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Scanner;
 import static br.com.ada.pablo.modelos.Categoria.*;
+import static br.com.ada.pablo.modelos.Genero.*;
 
 public class MetodosDeEntrada {
 
     public void telaPrincipal(Livraria livraria) {
         Scanner scanner = new Scanner(System.in);
-
+        System.out.println("Valor em caixa R$" + livraria.getValorCaixa());
+        System.out.println();
         System.out.println("1 - Vender produto");
         System.out.println("2 - Administrar estoque");
         System.out.println("3 - Fechar sistema");
@@ -22,32 +26,34 @@ public class MetodosDeEntrada {
             case 3 -> System.exit(0);
             default -> System.out.println("Alternativa não válida");
         }
-
     }
 
     private void administrarEstoque(Livraria livraria) {
-        System.out.println("1 - listar todos os produtos\n2 - listar produtos por categoria\n3 listar produtos por categoria e gênero\n 4 - voltar ao menu principal");
+        System.out.println("1 - adicionar produto \n2 - listar todos os produtos\n3 - listar produtos por categoria\n4 - listar produtos por categoria e gênero\n5 - voltar ao menu principal");
         Scanner scannerAdm = new Scanner(System.in);
         int escolha = scannerAdm.nextInt();
         if (escolha == 1){
-            livraria.listarTodosItensEmSequenciaDeCategoria();
-            administrarEstoque(livraria);
+            adicionarProduto(livraria);
         } else if (escolha == 2){
+            livraria.listarTodosItensEmSequenciaDeCategoria();
+            opcao(livraria);
+        } else if (escolha == 3){
             System.out.println();
             Categoria categoria = escolherCategoria();
             livraria.listarItensPorCategoria(categoria);
-            administrarEstoque(livraria);
-        } else if (escolha == 3){
+            opcao(livraria);
+        } else if (escolha == 4){
             Categoria categoria = escolherCategoria();
             Genero genero = escolherGenero();
             livraria.listarPorCategoriaEPorGenero(categoria, genero);
-            administrarEstoque(livraria);
+            opcao(livraria);
         } else {
             telaPrincipal(livraria);
         }
     }
 
     private void adicionarProduto(Livraria livraria) {
+        System.out.println("Digite o número da categoria de produto que deseja adicionar:");
         Scanner scannerAddProduto = new Scanner(System.in);
         System.out.println("1 - Brinquedo\n2 - Filme\n3 - Jogo\n4 - Livro\n5 - Albuns de Música");
         System.out.println("Digite o nome ou numero da categoria do produto que deseja adicionar:");
@@ -140,10 +146,11 @@ public class MetodosDeEntrada {
         System.out.println("1 - Brinquedo\n2 - Filme\n3 - Jogo\n4 - Livro\n5 - Albuns de Música");
         System.out.println("Digite o nome ou numero da categoria do produto:");
         String categoria = scannerVenda.nextLine();
+        List<Produto> produtos = new ArrayList<>();
         if (categoria.equalsIgnoreCase("brinquedo") || categoria.equals("1")) {
             livraria.listarItensPorCategoria(BRINQUEDO);
         } else if (categoria.equalsIgnoreCase("filme") || categoria.equals("2")) {
-            livraria.listarItensPorCategoria(FILME);
+            produtos = livraria.listarItensPorCategoria(FILME);
         } else if (categoria.equalsIgnoreCase("jogo") || categoria.equals("3")) {
             livraria.listarItensPorCategoria(JOGO);
         } else if (categoria.equalsIgnoreCase("livro") || categoria.equals("4")) {
@@ -151,27 +158,34 @@ public class MetodosDeEntrada {
         } else if (categoria.equalsIgnoreCase("musica") || categoria.equals("5")) {
             livraria.listarItensPorCategoria(MUSICA);
         }
-        System.out.println("Digite o ID do produto que deseja vender: ");
-        int idProduto = scannerVenda.nextInt();
-        livraria.selecionandoProdutoPorId(idProduto);
-        System.out.println(livraria.getValorCaixa());
 
-        telaPrincipal(livraria);
+        if (produtos.size() < 1){
+            System.out.println("Não há produtos desta categoria");
+            System.out.println();
+            telaPrincipal(livraria);
+        }else {
+            System.out.println("Digite o ID do produto que deseja vender: ");
+            int idProduto = scannerVenda.nextInt();
+            livraria.selecionandoProdutoPorId(idProduto);
+            System.out.println("Venda realizada!\n");
+            System.out.println();
+            telaPrincipal(livraria);
+        }
     }
 
     public Genero escolherGenero(){
         Scanner scannerGenero = new Scanner(System.in);
         System.out.println("1 - AÇÃO, 2 - COMÉDIA, 3 - ROMANCE, 4 - FANTASIA, 5 - DRAMA, 6 - TERROR");
         System.out.println("Digite o número do gênero: ");
-        int escolhaRomance = scannerGenero.nextInt();
+        int escolha = scannerGenero.nextInt();
         Genero genero = null;
-        switch (escolhaRomance){
-            case 1 -> genero = Genero.ACAO;
-            case 2 -> genero = Genero.COMEDIA;
-            case 3 -> genero = Genero.ROMANCE;
-            case 4 -> genero = Genero.FANTASIA;
-            case 5 -> genero = Genero.DRAMA;
-            case 6 -> genero = Genero.TERROR;
+        switch (escolha){
+            case 1 -> genero = ACAO;
+            case 2 -> genero = COMEDIA;
+            case 3 -> genero = ROMANCE;
+            case 4 -> genero = FANTASIA;
+            case 5 -> genero = DRAMA;
+            case 6 -> genero = TERROR;
             default -> System.out.println("Opção inválida!") ;
         }
         return genero;
@@ -192,5 +206,47 @@ public class MetodosDeEntrada {
             default -> System.out.println("Opção inválida!") ;
         }
         return categoria;
+    }
+
+    public void opcao (Livraria livraria){
+        System.out.println("1 - Editar preço de produto\n2 - Remover produto\n3 - voltar");
+        Scanner scannerOpcao = new Scanner(System.in);
+        int opcao = scannerOpcao.nextInt();
+        switch (opcao){
+            case 1 -> editarPrecoProduto(livraria);
+            case 2 -> deletarProduto(livraria);
+            case 3 -> administrarEstoque(livraria);
+            default -> System.out.println("Opção inválida");
+        }
+    }
+
+    public void editarPrecoProduto(Livraria livraria) {
+        Scanner scannerEditarProduto = new Scanner(System.in);
+        System.out.println("Digite o ID do produto que deseja editar: ");
+        int id = scannerEditarProduto.nextInt();
+        Produto produto = livraria.selecionandoPorId(id);
+        System.out.println("Digite o novo preço do produto");
+        double novoPreco = scannerEditarProduto.nextDouble();
+        produto.setPreco(novoPreco);
+        System.out.println("Alteração realizada!");
+        administrarEstoque(livraria);
+    }
+
+    public void deletarProduto(Livraria livraria) {
+        Scanner scannerConfirmacao = new Scanner(System.in);
+        System.out.println("Digite o número do ID do produto: ");
+        int id = scannerConfirmacao.nextInt();
+        scannerConfirmacao.nextLine();
+        System.out.println("Tem certeza que deseja realizar essa operação? S/N: ");
+        String confirmacao = scannerConfirmacao.nextLine();
+        if (confirmacao.equalsIgnoreCase("s")){
+            livraria.removerItemPorId(id);
+            System.out.println("Operação realizada com sucesso!");
+            administrarEstoque(livraria);
+        } else {
+            System.out.println("Operação cancelada!");
+            administrarEstoque(livraria);
+        }
+
     }
 }

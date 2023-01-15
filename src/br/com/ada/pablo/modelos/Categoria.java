@@ -2,5 +2,5 @@ package br.com.ada.pablo.modelos;
 
 public enum Categoria {
 
-    LIVRO, JOGO, FILME, MUSICA, BRINQUEDO;
+    BRINQUEDO, FILME, JOGO, LIVRO, MUSICA;
 }

@@ -25,6 +25,10 @@ public abstract class Produto {
         this.genero = genero;
     }
 
+    public void setPreco(Double preco) {
+        this.preco = preco;
+    }
+
     public void setId(int id) {
         this.id = id;
     }

@@ -17,8 +17,9 @@ public class Livraria {
     }
 
     public Produto adicionarProduto(Produto produto) {
+        Random idRandom = new Random();
         this.produtos.add(produto);
-        id = this.produtos.size();
+        id = idRandom.nextInt(1000);
         produto.setId(id);
         this.map.put(id, produto);
         return produto;
@@ -33,10 +34,9 @@ public class Livraria {
     public List<Produto> listarItensPorCategoria(Categoria categoria) {
         System.out.println(categoria);
         List<Produto> lista = this.produtos.stream().filter(produto -> produto.getCategoria() == categoria).toList();
+        System.out.println(lista.size() + " produtos\n");
         lista.forEach(System.out::println);
-        System.out.println(lista.size() + " produtos");
-
-        return produtos;
+        return lista;
     }
 
     public List<Produto> listarTodosItensEmSequenciaDeCategoria() {
@@ -45,18 +45,25 @@ public class Livraria {
         return this.produtos;
     }
 
-    public void testandoMap() {
+    public void removerItemPorId(int id) {
+        produtos.removeIf(produto -> produto.getId() == id);
+        System.out.println("Produto removido com sucesso");
     }
 
     public void selecionandoProdutoPorId(int id) {
         Produto produto = map.get(id);
         venderItem(produto);
+    }
 
+    public Produto selecionandoPorId(int id) {
+        return map.get(id);
     }
 
     public void listarPorCategoriaEPorGenero(Categoria categoria, Genero genero) {
-        List<Produto> lista = this.produtos.stream().filter(produto -> produto.getCategoria() == categoria && produto.getGenero() == genero).toList();
-        System.out.println(lista.size() + " produtos da categoria " + categoria + " do gênero " + genero);
+        List<Produto> lista = produtos.stream().filter(produto -> produto.getCategoria() == categoria && produto.getGenero() == genero).toList();
+
+        System.out.println(lista.size() + " produto(s) da categoria " + categoria + " do gênero " + genero);
+        System.out.println();
         lista.forEach(System.out::println);
 
     }

@@ -2,15 +2,20 @@ package br.com.ada.pablo.modelos;
 
 public class Livro extends Produto {
 
-    private String genero;
+    private Genero genero;
     private String escritor;
     private String editora;
 
     public Livro(Categoria categoria, String nome, Double preco, Genero genero, String escritor, String editora) {
         super(categoria, nome, preco);
-        this.genero = String.valueOf(genero);
+        this.genero = genero;
         this.escritor = escritor;
         this.editora = editora;
+    }
+
+    @Override
+    public Genero getGenero() {
+        return genero;
     }
 
     @Override
