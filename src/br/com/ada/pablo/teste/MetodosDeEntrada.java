@@ -148,29 +148,27 @@ public class MetodosDeEntrada {
         String categoria = scannerVenda.nextLine();
         List<Produto> produtos = new ArrayList<>();
         if (categoria.equalsIgnoreCase("brinquedo") || categoria.equals("1")) {
-            livraria.listarItensPorCategoria(BRINQUEDO);
+            produtos = livraria.listarItensPorCategoria(BRINQUEDO);
         } else if (categoria.equalsIgnoreCase("filme") || categoria.equals("2")) {
             produtos = livraria.listarItensPorCategoria(FILME);
         } else if (categoria.equalsIgnoreCase("jogo") || categoria.equals("3")) {
-            livraria.listarItensPorCategoria(JOGO);
+            produtos = livraria.listarItensPorCategoria(JOGO);
         } else if (categoria.equalsIgnoreCase("livro") || categoria.equals("4")) {
-            livraria.listarItensPorCategoria(LIVRO);
+            produtos = livraria.listarItensPorCategoria(LIVRO);
         } else if (categoria.equalsIgnoreCase("musica") || categoria.equals("5")) {
-            livraria.listarItensPorCategoria(MUSICA);
+            produtos = livraria.listarItensPorCategoria(MUSICA);
         }
 
         if (produtos.size() < 1){
             System.out.println("Não há produtos desta categoria");
-            System.out.println();
-            telaPrincipal(livraria);
         }else {
             System.out.println("Digite o ID do produto que deseja vender: ");
             int idProduto = scannerVenda.nextInt();
             livraria.selecionandoProdutoPorId(idProduto);
             System.out.println("Venda realizada!\n");
-            System.out.println();
-            telaPrincipal(livraria);
         }
+        System.out.println();
+        telaPrincipal(livraria);
     }
 
     public Genero escolherGenero(){
